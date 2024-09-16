@@ -1,6 +1,7 @@
+import WorkoutSession from "../models/WorkoutSessionModel.js";
+import Membership from "../models/MembershipModel.js";
 import Member from "../models/MemberModel.js";
 import Trainer from "../models/TrainerModel.js";
-import WorkoutSession from "../models/WorkoutSessionModel.js";
 
 export const getAllWorkoutSessions = async (req, res) => {
     try {
@@ -11,7 +12,15 @@ export const getAllWorkoutSessions = async (req, res) => {
                     {
                         model: Member,
                         as: "Member",
-                        required: true
+                        required: true,
+                        include: [
+                            {
+                                model: Membership,
+                                as: "Membership",
+                                required: true,
+                                attributes: ["type"]
+                            }
+                        ]
                     },
                     {
                         model: Trainer,
@@ -37,7 +46,14 @@ export const getWorkoutSessionById = async (req, res) => {
                     {
                         model: Member,
                         as: "Member",
-                        required: true
+                        required: true,
+                        include: [
+                            {
+                                model: Membership,
+                                as: "Membership",
+                                required: true
+                            }
+                        ]
                     },
                     {
                         model: Trainer,
@@ -77,10 +93,10 @@ export const deleteWorkoutSession = async (req, res) => {
 
 export const updateWorkoutSession = async (req, res) => {
     const id = req.params.id;
-    const { name, speciality } = req.body;
+    const { date } = req.body;
     try {
         const result = await WorkoutSession.update(
-            { name, speciality },
+            { date },
             { where: { id } }
         );
         res.json(result[0] ? "WorkoutSession updated" : "WorkoutSession not found");

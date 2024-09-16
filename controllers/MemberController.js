@@ -1,8 +1,18 @@
 import Member from "../models/MemberModel.js";
+import Membership from "../models/MembershipModel.js";
 
 export const getAllMembers = async (req, res) => {
     try {
-        const Members = await Member.findAll();
+        const Members = await Member.findAll({
+            include: [
+                {
+                    model: Membership,
+                    as: "Membership",
+                    required: true,
+                    attributes: ["type"]
+                }
+            ]
+        });
         res.send(Members);
     } catch (error) {
         res.status(500).send(error.message);
@@ -12,7 +22,16 @@ export const getAllMembers = async (req, res) => {
 export const getMemberById = async (req, res) => {
     const id = req.params.id;
     try {
-        const MemberId = await Member.findByPk(id);
+        const MemberId = await Member.findByPk(id, {
+            include: [
+                {
+                    model: Membership,
+                    as: "Membership",
+                    required: true,
+                    attributes: ["type"]
+                }
+            ]
+        });
         res.json(MemberId || { message: "Member not found" });
     } catch (error) {
         res.status(500).send(error.message);
@@ -45,10 +64,10 @@ export const deleteMember = async (req, res) => {
 
 export const updateMember = async (req, res) => {
     const id = req.params.id;
-    const { name, speciality } = req.body;
+    const { name, age, join_date } = req.body;
     try {
         const result = await Member.update(
-            { name, speciality },
+            { name, age, join_date },
             { where: { id } }
         );
         res.json(result[0] ? "Member updated" : "Member not found");

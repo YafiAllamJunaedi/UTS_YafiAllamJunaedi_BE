@@ -1,6 +1,7 @@
-import { DataTypes } from "sequelize";
-import Trainer from "./TrainerModel.js";
 import db from "../utils/connection.js";
+import { DataTypes } from "sequelize";
+import Membership from "./MembershipModel.js";
+import Trainer from "./TrainerModel.js";
 import WorkoutSession from "./WorkoutSessionModel.js";
 
 const Member = db.define("Member", {
@@ -25,9 +26,16 @@ const Member = db.define("Member", {
 },
 {
     tableName: "member"
-}
-)
+})
 
+
+Membership.hasOne(Member, {
+    onDelete: "CASCADE",
+    onUpdate: "CASCADE"
+})
+Member.belongsTo(Membership, {
+    foreignKey: "MembershipId"
+})
 Member.hasMany(WorkoutSession, {
     onDelete: "CASCADE",
     onUpdate: "CASCADE"
@@ -42,5 +50,6 @@ Trainer.hasMany(WorkoutSession, {
 WorkoutSession.belongsTo(Trainer, {
     foreignKey: "TrainerId"
 })
+
 
 export default Member;

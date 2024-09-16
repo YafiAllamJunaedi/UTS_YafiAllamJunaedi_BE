@@ -1,31 +1,46 @@
-import Trainer from "../models/TrainerModel.js";
+import Membership from "../models/MembershipModel.js";
 import Member from "../models/MemberModel.js";
+import Trainer from "../models/TrainerModel.js";
 import WorkoutSession from "../models/WorkoutSessionModel.js";
+import Room from "../models/RoomModel.js";
+
 
 const CreateSeeder = async () => {
-    const trainer = await Trainer.create({
-        name: "Zharif",
-        speciality: "Bulking"
-    });
     
+    const membership1 = await Membership.create({
+        type: "Regular",
+        price: 300000
+    })
+    const membership2 = await Membership.create({
+        type: "Premium",
+        price: 500000
+    })
+
     const member1 = await Member.create({
         name: "Danis",
         age: 15,
         join_date: new Date(),
-
+        MembershipId: membership1.dataValues.id
     })
+
     const member2 = await Member.create({
         name: "Pajri",
         age: 16,
         join_date: new Date(),
-
+        MembershipId: membership2.dataValues.id
     })
     const member3 = await Member.create({
         name: "Reza",
         age: 17,
         join_date: "2024-08-21",
-
+        MembershipId: membership2.dataValues.id
     })
+
+    const trainer = await Trainer.create({
+        name: "Zharif",
+        speciality: "Bulking"
+    });
+
     const workoutsession = await WorkoutSession.create({
         date: new Date(),
         MemberId: member1.dataValues.id,
@@ -42,21 +57,10 @@ const CreateSeeder = async () => {
         TrainerId: trainer.dataValues.id
     })
 
-    const findWorkoutSessionByMember = await WorkoutSession.findAll({
-        where: {
-            MemberId: member1.dataValues.id
-        },
-        attributes: ["date"],
-        include: [
-            {
-                model: Member, // model ini dari import di atas
-                as: "Member",  // ini dari dalem file member(argumen1)
-                require: true,
-                attributes: ["id", "name", "age"]
-            }
-        ]
+    const room1 = await Room.create({
+        room_name: "Pilates Room",
+        WorkoutSessionId: workoutsession.dataValues.id
     })
-    return findWorkoutSessionByMember;
 }
 
 const data = await CreateSeeder();

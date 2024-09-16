@@ -15,10 +15,10 @@ Merupakan sebuah REST API yang dibuat untuk memanajemen sebuah sistem GYM yang s
 
 
 # Class Diagram
-<img src="./image/gym_class_diagram.png" />
+<img src="./image/gym_classDiagram_5_table.png" />
 
 # ERD (Entity Relationship Diagram)
-<img src="./image/gym_erd.png" />
+<img src="./image/gym_erd_5_table.png" />
 
 
 #### Nama : Yafi' Allam Junaedi
