@@ -8,12 +8,12 @@ export const getAllMembers = async (req, res) => {
                 {
                     model: Membership,
                     as: "Membership",
-                    required: true,
+                    required: false,
                     attributes: ["type"]
                 }
             ]
         });
-        res.send(Members);
+        res.json(Members);
     } catch (error) {
         res.status(500).send(error.message);
     }
@@ -39,26 +39,19 @@ export const getMemberById = async (req, res) => {
 };
 
 export const addMember = async (req, res) => {
-    const { name, age, join_date  } = req.body;
+    console.log("request body : ", req.body)
+    const { name, age, join_date, membershipId  } = req.body;
     try {
         const newMember = await Member.create({
             name,
             age,
-            join_date
+            join_date,
+            membershipId,
         });
         res.status(201).json(newMember);
     } catch (error) {
+        console.error('Error inserting member:', error);
         res.status(400).send(error.message);
-    }
-};
-
-export const deleteMember = async (req, res) => {
-    const id = req.params.id;
-    try {
-        const result = await Member.destroy({ where: { id } });
-        res.json(result ? "Member deleted" : "Member not found");
-    } catch (error) {
-        res.status(500).send(error.message);
     }
 };
 
@@ -73,5 +66,15 @@ export const updateMember = async (req, res) => {
         res.json(result[0] ? "Member updated" : "Member not found");
     } catch (error) {
         res.status(400).send(error.message);
+    }
+};
+
+export const deleteMember = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const result = await Member.destroy({ where: { id } });
+        res.json(result ? "Member deleted" : "Member not found");
+    } catch (error) {
+        res.status(500).send(error.message);
     }
 };

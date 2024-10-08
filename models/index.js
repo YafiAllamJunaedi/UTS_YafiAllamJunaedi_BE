@@ -5,10 +5,11 @@ import WorkoutSession from "./WorkoutSessionModel.js";
 import Room from "./RoomModel.js";
 import db from "../utils/connection.js";
 
-await Membership.sync();
-await Member.sync();
-await Trainer.sync();
-await WorkoutSession.sync();
-await Room.sync();
+// await Membership.sync();
+// await Member.sync();
+// await Trainer.sync();
+// await WorkoutSession.sync();
+// await Room.sync();
 
-await db.sync();
+await db.sync({alter: true});
+console.log('All models were synchronized successfully.');

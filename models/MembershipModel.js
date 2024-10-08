@@ -1,5 +1,5 @@
-import db from "../utils/connection.js";
 import { DataTypes } from "sequelize";
+import db from "../utils/connection.js";
 
 const Membership = db.define("Membership", {
     id: {

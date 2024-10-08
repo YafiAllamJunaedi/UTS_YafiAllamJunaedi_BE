@@ -8,4 +8,4 @@ memberRoute.post("/create", addMember)
 memberRoute.delete("/delete/:id", deleteMember)
 memberRoute.put("/update/:id", updateMember)
 
-export default memberRoute;
+export default memberRoute; 

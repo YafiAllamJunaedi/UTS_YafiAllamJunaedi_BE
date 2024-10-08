@@ -7,27 +7,27 @@ export const getAllWorkoutSessions = async (req, res) => {
     try {
         const WorkoutSessions = await WorkoutSession.findAll(
             {
-                include:
-                [
-                    {
-                        model: Member,
-                        as: "Member",
-                        required: true,
-                        include: [
-                            {
-                                model: Membership,
-                                as: "Membership",
-                                required: true,
-                                attributes: ["type"]
-                            }
-                        ]
-                    },
-                    {
-                        model: Trainer,
-                        as: "Trainer",
-                        required: true
-                    }
-                ]
+                // include:
+                // [
+                //     {
+                //         model: Member,
+                //         as: "Member",
+                //         required: true,
+                //         include: [
+                //             {
+                //                 model: Membership,
+                //                 as: "Membership",
+                //                 required: true,
+                //                 attributes: ["type"]
+                //             }
+                //         ]
+                //     },
+                //     {
+                //         model: Trainer,
+                //         as: "Trainer",
+                //         required: true
+                //     }
+                // ]
             }
         );
         res.send(WorkoutSessions);

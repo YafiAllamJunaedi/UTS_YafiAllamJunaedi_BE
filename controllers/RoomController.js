@@ -7,35 +7,35 @@ import WorkoutSession from "../models/WorkoutSessionModel.js";
 export const getAllRooms = async (req, res) => {
     try {
         const Rooms = await Room.findAll(
-            {
-                include: [
-                    {
-                        model: WorkoutSession,
-                        as: "WorkoutSession",
-                        required: true,
-                        include: [
-                            {
-                                model: Member,
-                                as: "Member",
-                                required: true,
-                                include: [
-                                    {
-                                        model: Membership,
-                                        as: "Membership",
-                                        required: true,
-                                        attributes: ["type"]
-                                    }
-                                ]
-                            },
-                            {
-                                model: Trainer,
-                                as: "Trainer",
-                                required: true
-                            }
-                        ]
-                    }
-                ]
-            }
+            // {
+            //     include: [
+            //         {
+            //             model: WorkoutSession,
+            //             as: "WorkoutSession",
+            //             required: true,
+            //             include: [
+            //                 {
+            //                     model: Member,
+            //                     as: "Member",
+            //                     required: true,
+            //                     include: [
+            //                         {
+            //                             model: Membership,
+            //                             as: "Membership",
+            //                             required: true,
+            //                             attributes: ["type"]
+            //                         }
+            //                     ]
+            //                 },
+            //                 {
+            //                     model: Trainer,
+            //                     as: "Trainer",
+            //                     required: true
+            //                 }
+            //             ]
+            //         }
+            //     ]
+            // }
         );
         res.send(Rooms);
     } catch (error) {
