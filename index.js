@@ -7,6 +7,7 @@ import trainerRoute from './routes/trainerRoute.js'
 import workoutSessionRoute from './routes/workoutSesssionRoute.js'
 import roomRoute from './routes/roomRoute.js'
 import membershipRoute from './routes/membershipRoute.js'
+import adminRoute from './routes/AdminRoute.js'
 const app = express()
 // const PORT = process.env.PORT
 
@@ -21,6 +22,7 @@ app.use("/member", memberRoute);
 app.use("/trainer", trainerRoute);
 app.use("/workoutsession", workoutSessionRoute);
 app.use("/room", roomRoute)
+app.use("/admin", adminRoute)
 
 app.listen(3000, () => {
     console.log("Server berjalan di http://localhost:3000")

@@ -15,6 +15,10 @@ const CreateSeeder = async () => {
         type: "Premium",
         price: 500000
     })
+    const membership3 = await Membership.create({
+        type: "Advanced",
+        price: 700000
+    })
 
     const member1 = await Member.create({
         name: "Danis",
@@ -33,7 +37,7 @@ const CreateSeeder = async () => {
         name: "Reza",
         age: 17,
         join_date: "2024-08-21",
-        MembershipId: membership2.dataValues.id
+        MembershipId: membership3.dataValues.id
     })
 
     const trainer = await Trainer.create({

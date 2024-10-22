@@ -40,13 +40,13 @@ export const getMemberById = async (req, res) => {
 
 export const addMember = async (req, res) => {
     console.log("request body : ", req.body)
-    const { name, age, join_date, membershipId  } = req.body;
+    const { name, age, join_date, MembershipId  } = req.body;
     try {
         const newMember = await Member.create({
             name,
             age,
             join_date,
-            membershipId,
+            MembershipId,
         });
         res.status(201).json(newMember);
     } catch (error) {
@@ -57,10 +57,10 @@ export const addMember = async (req, res) => {
 
 export const updateMember = async (req, res) => {
     const id = req.params.id;
-    const { name, age, join_date } = req.body;
+    const { name, age, join_date, MembershipId } = req.body;
     try {
         const result = await Member.update(
-            { name, age, join_date },
+            { name, age, join_date, MembershipId },
             { where: { id } }
         );
         res.json(result[0] ? "Member updated" : "Member not found");

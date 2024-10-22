@@ -3,6 +3,7 @@ import Member from "./MemberModel.js";
 import Trainer from "./TrainerModel.js";
 import WorkoutSession from "./WorkoutSessionModel.js";
 import Room from "./RoomModel.js";
+import Admin from "./AdminModel.js";
 import db from "../utils/connection.js";
 
 // await Membership.sync();
